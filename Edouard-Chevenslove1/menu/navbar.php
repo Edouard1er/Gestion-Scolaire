@@ -1,8 +1,9 @@
-﻿<div id="navbar">
+﻿<?php session_start();?>
+<div id="navbar">
     <script type="text/javascript">
         $(document).ready(function () {
             // Create a jqxMenu
-            $("#jqxMenu").jqxMenu({ width: '100%', height: '30px'});
+            $("#jqxMenu").jqxMenu({ width: '100%', height: '20px'});
             var centerItems = function () {
                 var firstItem = $($("#jqxMenu ul:first").children()[0]);
                 firstItem.css('margin-left', 0);
@@ -21,11 +22,17 @@
             $("#jqxMenu").css('visibility', 'visible');
         });
     </script>
-    <div id='jqxWidget' style='height: 300px;'>
+    <div id='jqxWidget' style='height: 200px;'>
         <div id='jqxMenu' style='visibility: hidden; margin-left: 5px;'>
             <ul>
-                <li><a href="./home.php">Accueil</a></li>
-                
+                <li><a href="./form.php">Accueil</a></li>
+                <li type='separator'></li>
+                <li><img src="/user-img/<?= $_SESSION["user"]["picture"] ?>" class="img-login" alt="<?= $_SESSION["user"]["name"] ?>" />
+                    <ul style='width: 220px;'>
+                        <li><a href="./compte.php">Voir le profil</a></li>
+                        <li><a href="./logout.php">Deconnecter</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>

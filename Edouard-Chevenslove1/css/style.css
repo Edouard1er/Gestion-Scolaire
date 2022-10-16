@@ -1,5 +1,8 @@
-img-login{
-    height: 200% !important;
-    width: 40%;
-    display: none;
+.img-login{
+    margin: 0px;
+    width: 4vh;
+    height: 4vh;
+    background: transparent;
+    border-radius: 50%;
 }
+
