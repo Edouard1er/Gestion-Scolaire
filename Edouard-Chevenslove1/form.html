@@ -5,23 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./css/style.css" rel="stylesheet"/>
-    <?php include_once ("./utils/includes_head.html") ?>
+    <?php include ("./utils/includes_head.html") ?>
     <title>Postes</title>
     <script type="text/javascript">readyPost();</script>
 </head>
 <body>
-    <?php include_once ("./menu/navbar.html") ?>
+    <?php includE ("./menu/navbar.html") ?>
     <div class="body">
         <h1>Mes postes</h1>
         <div id="post-area">
             <form name="posts-form" id="posts-form" action=<?= htmlspecialchars($_SERVER["PHP_SELF"]) ?> method="post">
-                <input type="hidden" name="page" id="page" value="1" />
+                <input type="hidden" id="page" value="1" />
                 <span id="post-message"></span>
                 <textarea name="post-content" id="post-content"></textarea>
-                <input onclick="" name="post-submit-button" type="submit" value="Publier" id="post-submit-button" />
+                <input onclick="createPost()" name="post-submit-button" type="button" value="Publier" id="post-submit-button" />
                 <div id="div-posts">
                     <div id="all-posts"></div>
                     <nav id="pagination-post"></nav>
+                    <div id="update-post-popover">
+                        <div class="update-post-wrapper" style="padding: 5%;">
+                            <textarea name="update-post-content" id="update-post-content"></textarea>
+                            <div class="update-post-button">
+                                <input type="button" value="Annuler"  id="cancel-update-post-button"  />
+                                <input type="button" value="Modifier" id="confirm-update-post-button" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

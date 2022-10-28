@@ -5,8 +5,20 @@ function readyPost() {
         readPost();
     });
 }
+
 function createPost() {
-    
+    let posts_form = $('#posts-form');
+    let data = posts_form.serialize();
+    $.ajax( {
+        type: "POST",
+        url: "/post",
+        data:data,
+        success: function( response ) {
+            $("#post-content").val("");
+            readPost();
+        },
+        error: function( response ) {}						
+    } );
 }
 
 function readPost(page=1) {
@@ -23,12 +35,36 @@ function readPost(page=1) {
     } );
 }
 
-function updatePost() {
+function updatePost(postId) {
+    let content=$("#update-post-content").val()
+    let data=`postId=${postId}&post=${content}`
     
+    $.ajax( {
+        type: "PUT",
+        url: "/post",
+        data:data,
+        success: function( response ) {
+            document.getElementById(`each-post-content-${postId}`).innerText=content
+            $('#update-post-popover').jqxPopover('close');
+            $(".update-post-wrapper").css("display","none"); 
+        },
+        error: function( response ) {}						
+    } );
 }
 
-function deletePost() {
-
+function deletePost(postId) {
+    if(confirm("Voulez-vous vraiment supprimer la poste ?")){
+        let data=`postId=${postId}`
+        $.ajax( {
+            type: "DELETE",
+            url: "/post",
+            data:data,
+            success: function( response ) {
+                readPost();
+            },
+            error: function( response ) {}						
+        } );
+    }
 }
 
 function populatePosts(posts) {
@@ -45,10 +81,19 @@ function populatePosts(posts) {
                             ${datetime[1] && datetime[0].length > 0? ("le "+datetime[0]):"" } 
                             ${datetime[1] && datetime[1].length > 0? ("a "+datetime[1]):"" }
                         </div>
-                        <div>
-                            ${post.contenu}
-                        </div>
+                        <div class="each-post-content">
+                            <div id="each-post-content-${post.postId}">${post.contenu}</div>`;
+                            if(post.editable==1){
+                                html_div_post += 
+                                `<div class="post-action">
+                                    <button id="update-post-${post.postId}" title="Modifier la poste"  class="button-image" type="button" onclick="preparedUpdatePost(${post.postId})"><img alt="Modifier"  src="./img/editer.png"/></button>
+                                    <button title="Supprimer la poste" class="button-image" type="button" onclick="deletePost(${post.postId})"><img alt="Supprimer" src="./img/delete.png"/></button>
+                                </div>`
+                            }
+                        html_div_post +=    
+                        `</div>
                     </div>`;
+                    
                     $(document).ready(function () {
                         $("#post-"+post.postId).jqxExpander({ width: '50%', height: '50%'});
                     })
@@ -95,4 +140,28 @@ function changePagePost(page=1,to=1) {
             readPost(page);
         }
     }
+}
+
+function preparedUpdatePost(postId) {
+    let content = document.getElementById(`each-post-content-${postId}`).innerText
+    $(".update-post-wrapper").css("display","block");
+    $("#update-post-popover").jqxPopover({ offset: { left: 0, top: 0 }, isModal: true, 
+        arrowOffsetValue: 0, position: "right", title: "Modification de poste", 
+        showCloseButton: true, selector: $("#update-post-"+postId), width:"30%", height:"30%" });
+
+    $('#update-post-content').jqxTextArea({  placeHolder: "Modifier votre poste", width: '100%', height: 80 });
+    $('#update-post-content').val(content)
+    $("#confirm-update-post-button").jqxButton({ width: 120, height: 40,template: "success" });
+    $('#confirm-update-post-button').off('click');
+    $('#confirm-update-post-button').on('click', function () { 
+        updatePost(postId)
+    })
+    $("#cancel-update-post-button").jqxButton({ width: 120, height: 40,template: "info" });
+    $('#cancel-update-post-button').off('click');
+    $('#cancel-update-post-button').on('click', function () { 
+        $('#update-post-content').val("")
+        $('#update-post-popover').jqxPopover('close');
+        $(".update-post-wrapper").css("display","none");
+    })
+    $('#update-post-popover').jqxPopover('open');
 }

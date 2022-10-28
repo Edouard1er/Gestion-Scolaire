@@ -5,6 +5,7 @@
     require "../utils/put_method_delete.php";
     require "../utils/start.php";
     $request_method = $_SERVER['REQUEST_METHOD'];
+    $userId=$_SESSION["user"]["userId"];
     switch($request_method)
     {
         case 'GET':
@@ -16,9 +17,8 @@
                 readPost($page, $pageLimit);
             break;
         case 'POST':
-            if(verifyPostValue("post") && verifyPostValue("id")){
-                $post=htmlentities($_POST["post"]);
-                $userId=htmlentities($_POST["id"]);
+            if(verifyPostValue("post-content")){
+                $post=htmlentities($_POST["post-content"]);
                 createPost($userId,$post);
             }else{
                 header('Content-Type: application/json');
@@ -26,10 +26,10 @@
             }
             break;
         case 'PUT':
-            updatePost();
+            updatePost($userId);
             break; 
         case 'DELETE':
-            deletePost();
+            deletePost($userId);
             break;
         default:
             header("HTTP/1.0 405 Method Not Allowed");
@@ -87,6 +87,11 @@
                 $statement->execute();
                 if($statement->rowCount() > 0){
                     while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+                        if($row["userId"]==$_SESSION["user"]["userId"]){
+                            $row["editable"]=1;
+                        }else{
+                            $row["editable"]=0; 
+                        }
                         $posts[]=$row;
                     }
                 }
@@ -108,13 +113,12 @@
         echo json_encode($response, JSON_PRETTY_PRINT);
     }
 
-    function updatePost()
+    function updatePost($userId)
     {
         global $pdo,$_PUT;
         try {
-            if(isset($_PUT["postId"]) && isset($_PUT["userId"]) && isset($_PUT["post"])){
+            if(isset($_PUT["postId"]) && isset($_PUT["post"])){
                 $postId= inputFilter($_PUT["postId"]);
-                $userId= inputFilter($_PUT["userId"]);
                 $contenu=htmlentities($_PUT["post"]);
                 $sql = "UPDATE posts SET contenu=? WHERE postId=? AND userId=?";
                 $statement= $pdo->prepare($sql);
@@ -130,19 +134,17 @@
             }
             
         } catch (PDOException $exception) {
-            $exception;
             $response=throwError(); 
         }
         header('Content-Type: application/json');
         echo json_encode($response);
     }
 
-    function deletePost(){
+    function deletePost($userId){
         global $pdo,$_DELETE;
         try {
-            if(isset($_DELETE["postId"]) && isset($_DELETE["userId"])){
+            if(isset($_DELETE["postId"])){
                 $postId= inputFilter($_DELETE["postId"]);
-                $userId= inputFilter($_DELETE["userId"]);
                 $sql = "UPDATE posts SET statut='0' WHERE postId=? AND userId=?";
                 $statement= $pdo->prepare($sql);
                 

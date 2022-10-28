@@ -31,3 +31,35 @@
 .current-page{
     background-color: rgb(172, 222, 241) !important;
 }
+
+.each-post-content{
+    min-height: 5%;
+    margin: 1%;
+    padding: 1% !important;
+    position: relative;
+}
+
+.button-image{
+    background-color: transparent;
+    border: none;
+}
+
+.post-action{
+    margin-top: 10px;
+    position: absolute;
+    bottom: 10px;
+}
+
+.update-post-wrapper{
+    padding: 5%;
+    display: none;
+}
+
+.update-post-button{
+    margin-top: 5%;
+    text-align: center;
+}
+
+#cancel-update-post-button{
+    margin-right: 1%;
+}
