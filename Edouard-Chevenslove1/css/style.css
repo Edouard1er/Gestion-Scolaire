@@ -1,8 +1,33 @@
-.img-login{
-    margin: 0px;
-    width: 4vh;
-    height: 4vh;
-    background: transparent;
-    border-radius: 50%;
+#post-content{
+    margin-top: 2%;
+    margin-bottom: 1.5%;
 }
 
+.body{
+    padding: 1%;
+    width: 98%;
+}
+
+#div-posts{
+    margin-top: 2%;
+}
+
+.each-post{
+    margin-bottom: 1.5%;
+}
+
+.active{
+    background-color: #afd2e8;
+}
+
+.pagination-button{
+    cursor: pointer;
+}
+
+.pagination-number {
+    cursor: pointer;
+}
+
+.current-page{
+    background-color: rgb(172, 222, 241) !important;
+}

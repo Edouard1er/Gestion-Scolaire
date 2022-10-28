@@ -6,8 +6,8 @@
         exit;
     }
     
-    require_once ("./connection.php");
-    require_once ("./function.php");
+    require_once ("./session/connection.php");
+    require_once ("./function-php/function.php");
     
     $username = $password = $usernameError = $passwordError = $loginErrow = "";
     
@@ -54,7 +54,7 @@
                                     "picture"=>$userPicture
                                 );                          
                                 
-                                header("location: form.php");
+                                header("location: form.html");
                             } else{
                                 $loginError = "Nom d'utilisateur/mot de passe incorrect.";
                             }

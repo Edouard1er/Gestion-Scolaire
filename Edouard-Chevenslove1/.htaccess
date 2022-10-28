@@ -1,0 +1,9 @@
+# Add this to public_html/.htaccess file
+
+AddHandler application/x-httpd-php .html
+AddHandler application/x-httpd-php .htm
+
+RewriteEngine On # Activer le module Rewrite
+RewriteRule ^post/?$ api/post.php [NC,L]
+RewriteRule ^post+/(\d+)$ api/post.php?page=$1
+RewriteRule ^post+/(\d+)+/(\d+)$ api/post.php?page=$1&id=$2

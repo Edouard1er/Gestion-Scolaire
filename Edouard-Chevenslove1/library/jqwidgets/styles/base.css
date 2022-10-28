@@ -1233,7 +1233,7 @@ input[type=submit].jqx-button {
 /*applied to the menu separator items.*/
 .jqx-menu-item-separator {
     text-indent: 0;
-    background-color: #ddd;
+    background-color: transparent;
     border: none;
     list-style: none;
     height: 1px;

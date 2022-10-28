@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/style.css" rel="stylesheet"/>
+    <?php include_once ("./utils/includes_head.html") ?>
+    <title>Postes</title>
+    <script type="text/javascript">readyPost();</script>
+</head>
+<body>
+    <?php include_once ("./menu/navbar.html") ?>
+    <div class="body">
+        <h1>Mes postes</h1>
+        <div id="post-area">
+            <form name="posts-form" id="posts-form" action=<?= htmlspecialchars($_SERVER["PHP_SELF"]) ?> method="post">
+                <input type="hidden" name="page" id="page" value="1" />
+                <span id="post-message"></span>
+                <textarea name="post-content" id="post-content"></textarea>
+                <input onclick="" name="post-submit-button" type="submit" value="Publier" id="post-submit-button" />
+                <div id="div-posts">
+                    <div id="all-posts"></div>
+                    <nav id="pagination-post"></nav>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
