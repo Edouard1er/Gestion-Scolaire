@@ -50,16 +50,16 @@
     bottom: 10px;
 }
 
-.update-post-wrapper{
+.update-post-wrapper,.update-wrapper{
     padding: 5%;
     display: none;
 }
 
-.update-post-button{
+.update-post-button, .update-button{
     margin-top: 5%;
     text-align: center;
 }
 
-#cancel-update-post-button{
+#cancel-update-post-button, #cancel-update-user-button{
     margin-right: 1%;
 }

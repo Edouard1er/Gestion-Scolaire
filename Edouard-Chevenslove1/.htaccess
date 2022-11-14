@@ -1,9 +1,11 @@
-# Add this to public_html/.htaccess file
-
 AddHandler application/x-httpd-php .html
 AddHandler application/x-httpd-php .htm
 
-RewriteEngine On # Activer le module Rewrite
+RewriteEngine On 
+
 RewriteRule ^post/?$ api/post.php [NC,L]
 RewriteRule ^post+/(\d+)$ api/post.php?page=$1
 RewriteRule ^post+/(\d+)+/(\d+)$ api/post.php?page=$1&id=$2
+
+RewriteRule ^user/?$ api/user.php [NC,L]
+RewriteRule ^user+/(\d+)$ api/user.php?userId=$1

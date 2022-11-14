@@ -7,9 +7,64 @@
     <link href="./css/style.css" rel="stylesheet"/>
     <?php include_once ("./utils/includes_head.html") ?>
     <title>Gestion d'utilisateur</title>
+    <script type="text/javascript" src="./js/user.js"></script>
+    <script type="text/javascript">
+        readyUser()
+    </script>
 </head>
 <body>
     <?php include_once ("./menu/navbar.html") ?>
     Gestion d'utilisateur
+    <div>
+        <form id="form_user" name="form_user" style="overflow: hidden; margin: 10px;" action="./">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Login</th>
+                        <th>Mot de passe</th>
+                        <th>Confirmation de mot de passe</th>
+                        <th>Role</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><input style="margin-top: 15px;" id="username" name="username" /></td>
+                        <td><input style="margin-top: 15px;" id="password" name="password" type="password" /></td>
+                        <td><input style="margin-top: 15px;" id="confirm_password" name="confirm_password" type="password" /></td>
+                        <td><div style="margin-top: 15px;" name="role" id="role"></div></td>
+                    </tr>
+                    <tr><td align="center" colspan="4"><input style="margin-top: 15px;" id="submit" type="button" value="Ajouter un nouveau compte" /></td></tr>
+                </tbody>
+            </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Derniere connexion</th>
+                        <th>Login</th>
+                        <th>Role</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="user_list_tbody">
+                    
+                </tbody>
+            </table>
+        </form>
+        <div id="update-user-popover">
+            <div class="update-wrapper" style="padding: 5%;">
+                <input style="margin-top: 15px;" id="update_username" name="update_username" />
+                <select name="update_role" id="update_role">
+                    <option value="ELEVE">Eleve</option>
+                    <option value="PROF">Enseignant</option>
+                    <option value="ADMIN">Administrateur</option>
+                </select>
+                
+                <div class="update-button">
+                    <input type="button" value="Annuler"  id="cancel-update-user-button"  />
+                    <input type="button" value="Modifier" id="confirm-update-user-button" />
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

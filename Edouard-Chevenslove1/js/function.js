@@ -7,7 +7,7 @@ function checkFieldValidity(id,message="") {
     });
 }
 
-function toDateAndTime(datetime){
+function toDateAndTime(datetime, toArray=true){
     let response=[];
     if(datetime){
         datetime= datetime.split(" ");
@@ -16,6 +16,8 @@ function toDateAndTime(datetime){
             datetime= datetime[1].split(":");
             response[1]=datetime[0]+":"+datetime[1];
         }
+        if(!toArray)
+            return response.join(" ")
     }
     return response;
 }
