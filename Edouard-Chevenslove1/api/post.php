@@ -71,7 +71,7 @@
         global $pdo;
         $response=array();
         $offset = ($page > 1) ? ($pageLimit * ($page - 1)) : 0;
-        $totalRows=getAmountRow("postId", "posts");
+        $totalRows=getAmountRow("postId", "posts","INNER JOIN users ON (users.userId = posts.userId)", "users.statut=1 AND posts.statut=1");
         	
         $pages = ($totalRows % $pageLimit == 0) ? ($totalRows / $pageLimit) : (intval($totalRows / $pageLimit) + 1);
         

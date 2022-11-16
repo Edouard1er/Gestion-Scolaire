@@ -5,10 +5,10 @@
         return $myString;
     }
 
-    function getAmountRow($column, $table){
+    function getAmountRow($column, $table, $join, $where){
         global $pdo;
         $return=0;
-        $sqlCount = "SELECT count(".$column.") AS count FROM ".$table." WHERE statut=1";
+        $sqlCount = "SELECT count(".$column.") AS count FROM ".$table." ".$join." WHERE ".$where;
         $count=0;
         if($stmtCount = $pdo->prepare($sqlCount)){
             $stmtCount->execute();

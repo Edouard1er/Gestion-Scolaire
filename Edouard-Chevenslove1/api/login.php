@@ -28,7 +28,7 @@
         }
         
         if(empty($usernameError) && empty($passwordError)){
-            $sql = "SELECT userId, username,name,picture, password FROM users WHERE username = :username";
+            $sql = "SELECT userId, username,name,picture, password FROM users WHERE username = :username AND statut=1";
             
             if($statement = $pdo->prepare($sql)){
                 $statement->bindParam(":username", $paramUsername, PDO::PARAM_STR);
