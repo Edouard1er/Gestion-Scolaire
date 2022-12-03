@@ -21,3 +21,41 @@ function toDateAndTime(datetime, toArray=true){
     }
     return response;
 }
+
+function connecter(){
+    let posts_form = $('#posts-login');
+    let data = posts_form.serialize();
+    $.ajax( {
+        type: "POST",
+        url: "/login",
+        data:data,
+        success: function( response ) {
+            if(response && Object.keys(response).length > 0){
+                if(response.code == 1){
+                    window.open("/form.html","_self");
+                } else {
+                    document.getElementById("login-feedback").innerText=response.message
+                    $("#login-feedback").show()
+                }
+                
+            }
+        },
+        error: function( response ) {}						
+    } );
+}
+
+function connectTest () {  
+    $.ajax( {
+        type: "POST",
+        url: "/login",
+        data:"request=isLogged",
+        success: function( response ) {
+            if(response && Object.keys(response).length > 0){
+                if(response.code == 1){
+                    window.open("/form.html","_self");
+                } 
+            }
+        },
+        error: function( response ) {}						
+    } );
+}

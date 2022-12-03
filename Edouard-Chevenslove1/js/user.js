@@ -37,7 +37,7 @@ function createUser() {
 function readUser() {
     $.ajax( {
         type: "GET",
-        url: "/user/",
+        url: "/api/cours.php/",
         success: function( response ) {
             if(response && Object.keys(response).length > 0 && response.data){
                 populateUsers(response.data)

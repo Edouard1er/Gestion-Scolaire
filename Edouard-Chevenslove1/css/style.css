@@ -63,3 +63,7 @@
 #cancel-update-post-button, #cancel-update-user-button{
     margin-right: 1%;
 }
+
+#login-feedback{
+    display: none;
+}

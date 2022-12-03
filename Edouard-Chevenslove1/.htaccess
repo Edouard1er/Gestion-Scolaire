@@ -7,5 +7,10 @@ RewriteRule ^post/?$ api/post.php [NC,L]
 RewriteRule ^post+/(\d+)$ api/post.php?page=$1
 RewriteRule ^post+/(\d+)+/(\d+)$ api/post.php?page=$1&id=$2
 
+RewriteRule ^login/?$ api/login.php [NC,L]
+
 RewriteRule ^user/?$ api/user.php [NC,L]
 RewriteRule ^user+/(\d+)$ api/user.php?userId=$1
+
+RewriteRule ^cours/?$ api/cours.php [NC,L]
+RewriteRule ^cours+/(\d+)$ api/cours.php?coursId=$1
