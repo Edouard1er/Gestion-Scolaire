@@ -2630,6 +2630,7 @@ textarea.jqx-input-light:-ms-input-placeholder {
     background: #D94F43;
     border-color: #D94F43;
     padding: 10px;
+    height: 5%;
 }
 
 .jqx-validator-hint-light img {

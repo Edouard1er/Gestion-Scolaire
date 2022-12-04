@@ -9,6 +9,8 @@ RewriteRule ^post+/(\d+)+/(\d+)$ api/post.php?page=$1&id=$2
 
 RewriteRule ^login/?$ api/login.php [NC,L]
 
+RewriteRule ^user/profile/?$ api/profile.php [NC,L]
+
 RewriteRule ^user/?$ api/user.php [NC,L]
 RewriteRule ^user+/(\d+)$ api/user.php?userId=$1
 

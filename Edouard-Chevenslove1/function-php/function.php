@@ -94,7 +94,7 @@
         return $response;
     }
 
-    function updateTable($table,$id, $data,$table_id_name="id", $where="", $delete=0){
+    function updateTable($table,$id, $data,$table_id_name="id", $where="", $delete=0, $exceptionField=array()){
         global $pdo;
 
         $response=array();
@@ -103,6 +103,9 @@
             if(empty(withoutSpace($where))) $where = $table_id_name."='".$id."'";
             if($table=="users" && array_key_exists("password",$data)) unset($data["password"]);
             if($table=="users" && array_key_exists("confirm_password",$data)) unset($data["confirm_password"]);
+            foreach ($exceptionField as $value) {
+                if(array_key_exists($value,$data)) unset($data[$value]);
+            }
             
             $query="UPDATE ${table} SET ";
             $data_length= count($data);
@@ -210,5 +213,12 @@
             }
         }
         return $response;
+    }
+
+    function convertToDbDate($date)
+    {
+        $date=explode("/", $date);
+        $date=array_reverse($date);
+        return implode("-",$date);
     }
 ?>

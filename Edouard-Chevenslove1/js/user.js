@@ -5,10 +5,10 @@ function readyUser() {
             "PROF":"Enseignant",
             "ADMIN":"Administrateur"
         }
-        $("#username").jqxInput({  width: '300px', height: '30px' });         
-        $("#password").jqxPasswordInput({  width: '300px', height: '30px', showStrength: true, showStrengthPosition: "right" });
-        $("#confirm_password").jqxPasswordInput({  width: '300px', height: '30px' });
-        $("#role").jqxDropDownList({  source: roles, selectedIndex: -1, width: '300px', height: '30px', promptText: "C'est un...", autoDropDownHeight:true });
+        $("#username").jqxInput({  width: '100%', height: '30px' });         
+        $("#password").jqxPasswordInput({  width: '100%', height: '30px', showStrength: true, showStrengthPosition: "right" });
+        $("#confirm_password").jqxPasswordInput({  width: '100%', height: '30px' });
+        $("#role").jqxDropDownList({  source: roles, selectedIndex: -1, width: '100%', height: '30px', promptText: "C'est un...", autoDropDownHeight:true });
         $("#submit").jqxButton({ theme: theme });
         $("#submit").on("click", function() {
             createUser();
@@ -37,7 +37,7 @@ function createUser() {
 function readUser() {
     $.ajax( {
         type: "GET",
-        url: "/api/cours.php/",
+        url: "/api/user",
         success: function( response ) {
             if(response && Object.keys(response).length > 0 && response.data){
                 populateUsers(response.data)
@@ -156,9 +156,9 @@ function preparedUpdateUser(userId, username, role) {
             "PROF":"Enseignant",
             "ADMIN":"Administrateur"
         }
-        $("#update_username").jqxInput({  width: '300px', height: '30px' });
+        $("#update_username").jqxInput({  width: '100%', height: '30px' });
         $("#update_username").val(username)         
-        // $("#update_role").jqxDropDownList({  source: roles, selectedIndex: -1, width: '300px', height: '30px', promptText: "C'est un...", autoDropDownHeight:true });
+        // $("#update_role").jqxDropDownList({  source: roles, selectedIndex: -1, width: '100%', height: '30px', promptText: "C'est un...", autoDropDownHeight:true });
         $("#update_role").val(role)
 
     $("#confirm-update-user-button").jqxButton({ width: 120, height: 40,template: "success" });
@@ -174,4 +174,129 @@ function preparedUpdateUser(userId, username, role) {
         $(".update-wrapper").css("display","none");
     })
     $('#update-user-popover').jqxPopover('open');
+}
+
+function readyProfile(){
+    $(document).ready(function () {
+        $("#updateAccount").jqxExpander({  toggleMode: 'none', width: '100%', showArrow: false });
+        $("#validate").jqxButton({ theme: theme });
+        $("#cancel").jqxButton({ theme: theme });
+        $("#update").jqxButton({ theme: theme });
+        $('#profile-form').on('validationSuccess', function (event) {
+            $("#updateAccount").jqxExpander('setContent', '<span style="margin: 10px;">Account created.</span>');
+        });
+        var genders = {
+            "M":"Homme",
+            "F":"Femme",
+            "A":"Autre"
+        }
+        $("#gender").jqxDropDownList({source: genders, selectedIndex: -1, width: '100%', height: '30px', autoDropDownHeight:true });
+        isEditProfile();
+        readProfile();
+    });
+}
+
+function updateProfile(userId) {
+    let posts_form = $('#profile-form');
+    let data = posts_form.serialize();  
+    $.ajax( {
+        type: "PUT",
+        url: "/user/profile",
+        data:data,
+        success: function( response ) {
+            $("#isEdit").val("")
+            readyProfile();
+        },
+        error: function( response ) {}						
+    } );
+}
+
+function readProfile(){
+    $.ajax( {
+        type: "GET",
+        url: "/api/profile",
+        success: function( response ) {
+            if(response && Object.keys(response).length > 0 && response.data){
+                populateProfile(response.data[0])
+            }
+        },
+        error: function( response ) {}						
+    } );
+}
+
+function populateProfile(profile){
+    $(document).ready(function () {
+        var genders = {
+            "M":"Homme",
+            "F":"Femme",
+            "A":"Autre"
+        }
+
+        $("#first_name").val(profile.first_name);
+        $("#last_name").val(profile.last_name);
+        $("#email").val(profile.email);
+        $("#telephone").val(profile.telephone);
+        $("#home_address").val(profile.home_address);
+        $("#birthday").val(toDateAndTime(profile.birthday, false));
+        $("#gender").val(profile.gender);
+
+        $("#first_name_label").text(profile.first_name);
+        $("#last_name_label").text(profile.last_name);
+        $("#email_label").text(profile.email);
+        $("#telephone_label").text(profile.telephone);
+        $("#home_address_label").html(profile.home_address.replace(/\n/g, "<br />"));
+        $("#birthday_label").text(toDateAndTime(profile.birthday, false));
+        $("#gender_label").text(genders[profile.gender]);
+    });
+}
+
+function isEditProfile(){
+    
+    if($("#isEdit") && parseInt($("#isEdit").val())==1){
+        $("#first_name").jqxInput({  width: '100%', height: '30px' });
+        $("#last_name").jqxInput({  width: '100%', height: '30px'});
+        $("#email").jqxInput({  width: '100%', height: '30px' });
+        $("#telephone").jqxInput({  width: '100%', height: '30px' });
+        $('#home_address').jqxTextArea({ width: '100%', height: 80 });
+        $("#birthday").jqxDateTimeInput({  width: '100%', height: '30px' });
+        $(".edit-profile").show()
+        $("#home_address").show()
+        $("#telephone").show()
+        $("#first_name").show()
+        $("#last_name").show()
+        $("#email").show()
+        $("#gender").show()
+        $(".read-profile").hide()
+    }else{
+        $("#home_address").hide()
+        $("#telephone").hide()
+        $("#first_name").hide()
+        $("#last_name").hide()
+        $("#email").hide()
+        $("#gender").hide()
+        $(".edit-profile").hide()
+        $(".read-profile").show()
+    }
+}
+
+function profileEventListener(){
+    $(document).ready(function () {
+        $("#validate").click(function () {
+            if(confirm("Confirmez-vous la mise a jour?")){
+                $('#profile-form').jqxValidator('validate');
+                updateProfile();
+            }
+        });
+        $("#cancel").click(function () {
+            if(confirm("Voulez-vous annuler la mise a jour")){
+                $("#isEdit").val("")
+                isEditProfile()
+            }
+        });
+        $("#update").click(function () {
+            $("#isEdit").val("1")
+            isEditProfile();
+            // readProfile();
+        });
+    })
 }

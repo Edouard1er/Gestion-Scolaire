@@ -1,6 +1,6 @@
 function readyPost() {
     $(document).ready(function () {
-        $('#post-content').jqxTextArea({  placeHolder: "Publier une nouvelle poste", width: '30%', height: 80 });
+        $('#post-content').jqxTextArea({  placeHolder: "Publier une nouvelle poste", width: '100%', height: 80 });
         $("#post-submit-button").jqxButton({ width: 120, height: 40 });
         readPost();
     });
@@ -95,7 +95,7 @@ function populatePosts(posts) {
                     </div>`;
                     
                     $(document).ready(function () {
-                        $("#post-"+post.postId).jqxExpander({ width: '50%', height: '50%'});
+                        $("#post-"+post.postId).jqxExpander({ width: '100%', height: '50%'});
                     })
                 })
                 $("#all-posts").html(html_div_post)

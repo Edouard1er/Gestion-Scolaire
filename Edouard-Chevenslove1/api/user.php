@@ -3,7 +3,7 @@
     require "../session/connection.php";
     require "../function-php/function.php";
     require "../utils/put_method_delete.php";
-    // require "../utils/start.php";
+    require "../utils/start.php";
     $request_method = $_SERVER['REQUEST_METHOD'];
     // $userId=$_SESSION["user"]["userId"];
     switch($request_method)
@@ -116,7 +116,7 @@
 
         $response=array();
         try {
-            $sql = "SELECT u.userId,u.username, u.name,r.libelle AS role_libelle, u.role as role_code, u.picture, u.last_login, u.created_at 
+            $sql = "SELECT u.userId,u.username, u.first_name, u.last_name,r.libelle AS role_libelle, u.role as role_code, u.picture, u.last_login, u.created_at 
             FROM users AS u
             INNER JOIN role AS r ON (r.code=u.role)
             WHERE statut='1'";

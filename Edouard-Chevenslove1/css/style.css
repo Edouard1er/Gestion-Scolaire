@@ -4,8 +4,7 @@
 }
 
 .body{
-    padding: 1%;
-    width: 98%;
+    padding: 2% 10% 2% 10%;
 }
 
 #div-posts{
@@ -34,7 +33,6 @@
 
 .each-post-content{
     min-height: 5%;
-    margin: 1%;
     padding: 1% !important;
     position: relative;
 }
@@ -66,4 +64,18 @@
 
 #login-feedback{
     display: none;
+}
+
+.update-profile-div{
+    margin-bottom: 20px;
+}
+
+.header-profile{
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#body-profile{
+    padding-right: 30%;
+    padding-left: 30%;
 }
