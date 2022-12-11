@@ -14,5 +14,10 @@ RewriteRule ^user/profile/?$ api/profile.php [NC,L]
 RewriteRule ^user/?$ api/user.php [NC,L]
 RewriteRule ^user+/(\d+)$ api/user.php?userId=$1
 
-RewriteRule ^cours/?$ api/cours.php [NC,L]
-RewriteRule ^cours+/(\d+)$ api/cours.php?coursId=$1
+RewriteRule ^classes/?$ api/cours.php [NC,L]
+
+RewriteRule ^classes/subscribe/?$ api/cours.php?type=subscribe
+
+RewriteRule ^classes+/(\d+)$ api/cours.php?page=$1
+RewriteRule ^classes+/(\d+)+/(\d+)$ api/cours.php?page=$1&mode=$2
+# RewriteRule ^classes+/(\d+)$ api/cours.php?mode=$1

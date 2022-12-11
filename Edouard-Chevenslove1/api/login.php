@@ -27,7 +27,7 @@
             
             if(empty($usernameError) && empty($passwordError)){
                 $loginError = "Nom d'utilisateur/mot de passe incorrect.";
-                $sql = "SELECT userId, username,name,picture, password FROM users WHERE username = :username AND statut=1";
+                $sql = "SELECT userId, username,name,picture, password,role FROM users WHERE username = :username AND statut=1";
                 
                 if($statement = $pdo->prepare($sql)){
                     $statement->bindParam(":username", $paramUsername, PDO::PARAM_STR);
@@ -49,7 +49,8 @@
                                         "userId"=>$userId,
                                         "username"=>$username,
                                         "name"=>$name,
-                                        "picture"=>$userPicture
+                                        "picture"=>$userPicture,
+                                        "role"=>$row["role"]
                                     );
                                     $response=throwSuccess();
                                     $response["data"]= $_SESSION["user"];                      
