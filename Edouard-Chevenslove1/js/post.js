@@ -1,7 +1,16 @@
+var userInfo=JSON.parse(localStorage.getItem("user"))
 function readyPost() {
     $(document).ready(function () {
         $('#post-content').jqxTextArea({  placeHolder: "Publier une nouvelle poste", width: '100%', height: 80 });
         $("#post-submit-button").jqxButton({ width: 120, height: 40 });
+        $("#post-submit-button").on("click", (e)=>{
+            createPost();
+        })
+        let checkbox=$("#only-our-post")
+        $("#only-our-post").on("change", (e)=>{
+            
+              readPost();
+        })
         readPost();
     });
 }
@@ -22,6 +31,7 @@ function createPost() {
 }
 
 function readPost(page=1) {
+    
     $.ajax( {
         type: "GET",
         url: "/post/"+page,
@@ -75,7 +85,7 @@ function populatePosts(posts) {
                 posts.forEach(post => {
                     const datetime = toDateAndTime(post.created_at)
                     html_div_post += 
-                    `<div id="post-${post.postId}" class="each-post">
+                    `<div id="post-${post.postId}" editable="${post.editable}" class="each-post">
                         <div> 
                             ${post.name && post.name.length > 0 ?post.name:post.username}  a ecrit 
                             ${datetime[1] && datetime[0].length > 0? ("le "+datetime[0]):"" } 
