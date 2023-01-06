@@ -8,13 +8,23 @@
     <?php include_once ("./utils/includes_head.html") ?>
     <title>Compte</title>
     <script src="./js/user.js"></script>
-    <script>
+    <!-- <script src="./js/function.js"></script> -->
+    
+</head>
+<body>
+    <?php
+    include_once ("./menu/navbar.html");
+    if($_SESSION["user"]["first_login"]==1 && $_SERVER["REQUEST_URI"] !="/compte.html"){ ?>
+    <div class="body">
+    <h4>C'est votre premiere connexion, vous devez changer votre mot de passe</h4>
+    
+    <?php require("./password.php"); ?></div><?php
+    }else{?>
+        <script>
         readyProfile();
         profileEventListener();
     </script>
-</head>
-<body>
-    <?php include_once ("./menu/navbar.html") ?>
+    
     <div class="body" id="body-profile">
         <div id="updateAccount" style="font-family: Verdana; font-size: 13px;">
             <div>
@@ -75,6 +85,13 @@
                 </form>
             </div>
         </div>
+
+        <div id="update-pass">
+        <?php include("./password.php") ?>
     </div>
+    </div>
+
+    
+    <?php }?>
 </body>
 </html>

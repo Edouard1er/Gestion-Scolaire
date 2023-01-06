@@ -4,14 +4,100 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/cours.css" rel="stylesheet"/>
     <link href="./css/style.css" rel="stylesheet"/>
-    <link href="./css/table.css" rel="stylesheet"/>
+
     <?php include_once ("./utils/includes_head.html") ?>
     <title>Cours</title>
+   
 </head>
+
 <body>
-    <?php include_once ("./menu/navbar.html") ?>
-    Cours
-    <?php include_once ("./test.html") ?>
+    <?php include_once ("./menu/navbar.html");
+        if($_SESSION["user"]["role"]=="PROF"){
+
+    ?>
+    <!-- Professeurs -->
+    <div class="body">
+        <h1>Vos cours</h1>
+
+        <div id="new-class">
+            <input type="hidden" id="page" value="1" />
+            <span id="class-message"></span>
+            <textarea name="class-nom" id="class-nom"></textarea>
+            <textarea name="class-description" id="class-description"></textarea>
+            <input name="class-submit-button" type="button" value="Ajouter" id="class-submit-button" />
+        </div>
+        
+        <table id="table_my_classes_prof">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Description</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <thead>
+                <tbody id="my_classes_list_tbody"></tbody>
+            </thead>
+        </table>
+
+        <div id="update-class-popover">
+                
+            <div class="update-class-wrapper">
+                <textarea name="update-class-nom" id="update-class-nom"></textarea>
+                <textarea name="update-class-description" id="update-class-description"></textarea>
+                <div class="update-class-button">
+                    <input type="button" value="Annuler"  id="cancel-update-class-button"  />
+                    <input type="button" value="Modifier" id="confirm-update-class-button" />
+                </div>
+            </div>
+        </div>
+    </div>   
+     
+    <?php }else{ ?>
+        <!-- Etudiants -->
+        <div class="body">
+            <h1>Vos cours</h1>
+            <table id="table_my_classes">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Enseignant</th>
+                        <th>Note</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <thead>
+                    <tbody id="my_classes_list_tbody"></tbody>
+                </thead>
+            </table>
+
+            <h5>Moyenne</h5>
+            <label id="moyenne"></label>
+        
+            <h1>Autres cours auxquels vous pourriez inscrire</h1>
+        
+            <table id="table_other_classes">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>De</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <thead>
+                    <tbody id="other_classes_list_tbody"></tbody>
+                </thead>
+            </table>
+        
+            <input name="subscribed-button" type="button" value="S'inscrire" id="subscribed-button" />
+        </div>
+    <?php } ?>
+   
+    <script type="text/javascript" src="./js/cours.js"></script>
+    <script type="text/javascript">readyClasses()</script>
 </body>
 </html>

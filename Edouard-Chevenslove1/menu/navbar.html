@@ -25,15 +25,22 @@
     <div id='jqxWidget'>
         <div id='jqxMenu' style='visibility: hidden;'>
             <ul>
-                <li><a href="./home.html">Accueil</a></li>
+                <!-- <li><a href="./home.html">Accueil</a></li> -->
                 <li><a href="./form.html">Postes</a></li>
+                <?php if($_SESSION["user"]["role"]!="ADMIN") {?>
                 <li><a href="./cours.html">Cours</a></li>
+                <?php } ?>
+                <?php if($_SESSION["user"]["role"]=="PROF") {?>
+                    <li><a href="./eleve.html">Eleves</a></li>
+                <?php } ?>
+                <?php if($_SESSION["user"]["role"]=="ADMIN") {?>
                 <li><a href="./admin.html">Gestion d'utilisateur</a></li>
+                <?php } ?>
                 <li style="width:10%;" type='separator'></li>
                 <li><span><?= $_SESSION["user"]["name"]?$_SESSION["user"]["name"]:$_SESSION["user"]["username"]?></span><img class="img-login" src="./img/utilisateur.png" />
                     <ul>
-                        <li><a href="./compte.html">Voir le profil</a></li>
-                        <li><a href="./session/logout.php">Deconnecter</a></li>
+                        <li><a href="./compte.php">Voir le profil</a></li>
+                        <li><a onclick="localStorage.setItem('user','')" href="./session/logout.php">Deconnecter</a></li>
                     </ul>
                 </li>
             </ul>

@@ -30,7 +30,11 @@ function createUser() {
             $("#form_user")[0].reset()
             $("#role").jqxDropDownList({selectedIndex: -1})
         },
-        error: function( response ) {}						
+        error: function( response ) {
+            if([-1,-2,-3,-4,-5,-6,-7].includes(response.responseJSON.code)){
+                alert(response.responseJSON.message)
+            }
+        }						
     } );
 }
 
@@ -148,7 +152,7 @@ function changePageUser(page=1,to=1) {
 function preparedUpdateUser(userId, username, role) {
     $(".update-wrapper").css("display","block");
     $("#update-user-popover").jqxPopover({ offset: { left: 0, top: 0 }, isModal: true, 
-        arrowOffsetValue: 0, position: "right", title: "Modification de l'utilisateur", 
+        arrowOffsetValue: 0, position: "left", title: "Modification de l'utilisateur", 
         showCloseButton: true, selector: $("#update-user-"+userId), width:"30%", height:"30%" });
 
         var roles ={

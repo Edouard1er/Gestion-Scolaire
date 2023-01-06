@@ -48,17 +48,21 @@
     bottom: 10px;
 }
 
-.update-post-wrapper,.update-wrapper{
+#update-class-nom{
+    margin-bottom: 5%;
+}
+
+.update-post-wrapper,.update-wrapper,.update-class-wrapper{
     padding: 5%;
     display: none;
 }
 
-.update-post-button, .update-button{
+.update-post-button, .update-button,.update-class-button{
     margin-top: 5%;
     text-align: center;
 }
 
-#cancel-update-post-button, #cancel-update-user-button{
+#cancel-update-post-button, #cancel-update-user-button,#cancel-update-class-button, #cancel-update-class-button{
     margin-right: 1%;
 }
 
@@ -78,4 +82,17 @@
 #body-profile{
     padding-right: 30%;
     padding-left: 30%;
+}
+
+#class-description, #subscribed-button, #note-button{
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+#table_my_classes_prof, #note, #div-note{
+    margin-top: 5%;
+}
+
+#update_password{
+    margin-top: 5%;
 }

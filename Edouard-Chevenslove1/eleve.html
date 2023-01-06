@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/cours.css" rel="stylesheet"/>
+    <link href="./css/style.css" rel="stylesheet"/>
+
+    <?php include_once ("./utils/includes_head.html") ?>
+    <title>Eleves</title>
+   
+</head>
+
+<body>
+    <?php include_once ("./menu/navbar.html");?>
+    
+    <div class="body">
+        <h1>Vos eleves</h1>
+        
+        <table id="table_my_classes_prof">
+            <thead>
+                <tr>
+                    <th>Cours</th>
+                    <th>Eleve</th>
+                    <th>Note</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <thead>
+                <tbody id="my_classes_list_tbody"></tbody>
+            </thead>
+        </table>
+
+        <div id="div-note">
+            <div style='margin-top: 10px;'>
+                Donner une note</div>
+            <div style='margin-top: 3px;' id='note'></div>
+            <input name="note-button" type="button" value="Valider" id="note-button" /> 
+        </div>
+          
+     
+    
+   
+    <script type="text/javascript" src="./js/cours.js"></script>
+    <script type="text/javascript">readyEleve(false)</script>
+</body>
+</html>

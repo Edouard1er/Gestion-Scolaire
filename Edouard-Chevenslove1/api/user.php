@@ -40,10 +40,10 @@
         $username_err = $password_err = $confirm_password_err = "";
         
         if(empty(trim($username))){
-            $username_err = "Please enter a username.";
+            $username_err = "SVP entrer l'utilisateur.";
             $response=throwError($username_err,-1);
         } else if(!preg_match('/^[a-zA-Z0-9_]+$/', trim($username))){
-            $username_err = "Username can only contain letters, numbers, and underscores.";
+            $username_err = "Le nom d'utilisateur ne peut contenir que des lettres, des chiffres et des caractères de soulignemen.";
             $response=throwError($username_err,-2);
         }else{
             $sql = "SELECT userId FROM users WHERE username = :username AND statut='1'";
@@ -66,17 +66,17 @@
                     $password_err = "Please enter a password."; 
                     $response=throwError($password_err,-4);    
                 } else if(strlen(trim($_POST["password"])) < 6){
-                    $password_err = "Password should have at least 6 characters.";
+                    $password_err = "Le mot de passe doit comporter au moins 6 caractères.";
                     $response=throwError($password_err,-5);  
                 } else {
                     $password = trim($_POST["password"]);
                     if(empty(trim($confirm_password))){
-                        $confirm_password_err = "Please confirm password."; 
+                        $confirm_password_err = "Confirmez votre mot de passe."; 
                         $response=throwError($confirm_password_err,-6);    
                     } else{
                         $confirm_password = trim($confirm_password);
                         if(empty($password_err) && ($password != $confirm_password)){
-                            $confirm_password_err = "Password did not match.";
+                            $confirm_password_err = "Les mots de passe sont differents.";
                             $response=throwError($confirm_password_err,-7);
                         }
                     }
@@ -100,7 +100,7 @@
                 }
             } catch (PDOException $exception) {
                 if($exception->errorInfo[0]=="23000"){
-                    $response=throwError("User already exists !",$exception->errorInfo[0]);
+                    $response=throwError("l'utilisateur existe deja !",$exception->errorInfo[0]);
                 }
             }
         }

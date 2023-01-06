@@ -32,7 +32,8 @@ function connecter(){
         success: function( response ) {
             if(response && Object.keys(response).length > 0){
                 if(response.code == 1){
-                    window.open("/form.html","_self");
+                    localStorage.setItem("user",JSON.stringify(response.data))
+                        window.open("/form.html","_self");
                 } else {
                     document.getElementById("login-feedback").innerText=response.message
                     $("#login-feedback").show()
@@ -52,6 +53,8 @@ function connectTest () {
         success: function( response ) {
             if(response && Object.keys(response).length > 0){
                 if(response.code == 1){
+                    localStorage.setItem("user",JSON.stringify(response.data))
+                    console.log("user",localStorage.getItem("user"))
                     window.open("/form.html","_self");
                 } 
             }
@@ -59,3 +62,30 @@ function connectTest () {
         error: function( response ) {}						
     } );
 }
+
+function update_password_(){
+    let posts_form = $('#update_password');
+    let data = posts_form.serialize();
+    $.ajax( {
+        type: "POST",
+        url: "/update_password",
+        data:data,
+        success: function( response ) {
+            if(response && Object.keys(response).length > 0){
+                if(response.code == 1){
+                    let  userInfo=JSON.parse(localStorage.getItem("user"))
+                    userInfo.first_login=0;
+                    localStorage.setItem("user",JSON.stringify(userInfo))
+                        alert("Mot de passe change avec success")
+                        window.location.reload()
+                }                 
+            }
+        },
+        error: function( response ) {
+            if(response.code=-2){
+                alert("Il faut mettre un mot de passe different quand meme. lol")
+            }
+        }						
+    } );
+}
+

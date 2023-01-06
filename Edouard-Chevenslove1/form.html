@@ -13,13 +13,15 @@
 <body>
     <?php includE ("./menu/navbar.html") ?>
     <div class="body">
-        <h1>Mes postes</h1>
+        <h1>Postes</h1>
+        <input id="only-our-post" type="checkbox" value="1" /> Mes postes seulement
+        <input id="mode-post" type="hidden" value="0" />
         <div id="post-area">
             <form name="posts-form" id="posts-form" action=<?= htmlspecialchars($_SERVER["PHP_SELF"]) ?> method="post">
                 <input type="hidden" id="page" value="1" />
                 <span id="post-message"></span>
                 <textarea name="post-content" id="post-content"></textarea>
-                <input onclick="createPost()" name="post-submit-button" type="button" value="Publier" id="post-submit-button" />
+                <input name="post-submit-button" type="button" value="Publier" id="post-submit-button" />
                 <div id="div-posts">
                     <div id="all-posts"></div>
                     <nav id="pagination-post"></nav>

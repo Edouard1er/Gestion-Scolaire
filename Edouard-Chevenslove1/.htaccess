@@ -17,7 +17,9 @@ RewriteRule ^user+/(\d+)$ api/user.php?userId=$1
 RewriteRule ^classes/?$ api/cours.php [NC,L]
 
 RewriteRule ^classes/subscribe/?$ api/cours.php?type=subscribe
+RewriteRule ^classes/note/?$ api/cours.php?type=note
+RewriteRule ^update_password/?$ api/profile.php
 
 RewriteRule ^classes+/(\d+)$ api/cours.php?page=$1
-RewriteRule ^classes+/(\d+)+/(\d+)$ api/cours.php?page=$1&mode=$2
+RewriteRule ^classes+/(\d+)+/([a-zA-Z0-9_-]+)$ api/cours.php?page=$1&mode=$2
 # RewriteRule ^classes+/(\d+)$ api/cours.php?mode=$1
